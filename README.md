@@ -26,4 +26,4 @@ Android API Version: 30
 
 AVD Used in testing
 ![image](https://user-images.githubusercontent.com/8345926/139518291-1f43198c-bfe7-4aa2-9315-f0ecc4a05ad0.png)
-https://joshua.services/g/TgOf1
+![image](https://joshua.services/images/gif/TgOf1.gif)
