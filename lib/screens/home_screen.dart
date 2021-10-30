@@ -1,5 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:project_geek/constants.dart';
+import 'dart:io' show File, Platform;
+
+import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key, required this.title}) : super(key: key);
@@ -11,6 +16,8 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  ImageProvider imageFile = const ExactAssetImage('assets/default.jpg');
+
   @override
   void initState() {
     super.initState();
@@ -42,21 +49,36 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
-                                Container(
-                                    width: 140.0,
-                                    height: 140.0,
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                        color: Colors.blue,
-                                        width: 2.5
-                                      ),
-                                      shape: BoxShape.circle,
-                                      image: const DecorationImage(
-                                        image:
-                                        ExactAssetImage('assets/default.jpg'),
-                                        fit: BoxFit.cover,
-                                      ),
-                                    )),
+                                FutureBuilder(future: _profileFile,
+                                    builder: (BuildContext context, AsyncSnapshot<File> snapshot) {
+                                      return snapshot.data != null ? Container(
+                                          width: 140.0,
+                                          height: 140.0,
+                                          decoration: BoxDecoration(
+                                            border: Border.all(
+                                                color: Colors.blue,
+                                                width: 2.5
+                                            ),
+                                            shape: BoxShape.circle,
+                                            image: DecorationImage(
+                                              image: Image.file(snapshot.data!).image,
+                                              fit: BoxFit.cover,
+                                            ),
+                                          )) : Container(
+                                          width: 140.0,
+                                          height: 140.0,
+                                          decoration: BoxDecoration(
+                                            border: Border.all(
+                                                color: Colors.blue,
+                                                width: 2.5
+                                            ),
+                                            shape: BoxShape.circle,
+                                            image: DecorationImage(
+                                              image: imageFile,
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ));
+                                    }),
                               ],
                             ),
                             Padding(
@@ -64,15 +86,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 const EdgeInsets.only(top: 0.0, left: 95.0),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
-                                  children: const <Widget>[
+                                  children: <Widget>[
                                     CircleAvatar(
                                       backgroundColor: Colors.lightBlue,
                                       radius: 25.0,
-                                      child: Icon(
-                                        Icons.edit,
-                                        color: Colors.white,
+                                      child: IconButton(
+                                        icon: const Icon(Icons.edit, color: Colors.white, size: 22.0),
+                                        tooltip: 'Go Back',
+                                        onPressed: () {
+                                          setState(() {
+                                            if (Platform.isAndroid) {
+                                              _getFromGallery();
+                                            }
+                                          });
+                                        },
                                       ),
-                                    )
+                                    ),
                                   ],
                                 )),
                           ]),
@@ -86,9 +115,30 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
         ));
   }
+
+  _getFromGallery() async {
+    final ImagePicker _picker = ImagePicker();
+    XFile? image = await _picker.pickImage(
+      source: ImageSource.gallery,
+      maxWidth: 1800,
+      maxHeight: 1800,
+    );
+    final file = await _profileFile;
+    setState(() {
+      if (image != null) {
+        imageFile = Image.file(File(image.path)).image;
+        file.writeAsBytesSync(File(image.path).readAsBytesSync());
+      }
+    });
+  }
+
+  Future<String> get _localPath async {
+    final directory = await getApplicationDocumentsDirectory();
+    return directory.path;
+  }
+
+  Future<File> get _profileFile async {
+    final path = await _localPath;
+    return File('$path/profile.jpg');
+  }
 }
-/*
-            onPressed: () {
-              Navigator.pushNamed(context, editScreen);
-            },
- */
