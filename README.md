@@ -1,9 +1,15 @@
 # project_geek
 
 Small mobile application to emulate a functional profile page as part of a interview coding project.
-Programmed completely in dart while using flutter as the framework to allow ease of mobile development.
 
 First time using dart, so it was a new experience and fun experience, Definitely enjoyed it and would use it in the future.
+
+## Features
+- Utilized Dart as the sole codebase
+- Implemented Flutter to allow ease mobile development
+- Json is utilized for saving and loading the user profile.
+- Profile photo is saved to the local device to be used later, Photos can be uploaded from the camera gallery from device.
+
 
 ## Getting Started
 
