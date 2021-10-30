@@ -11,12 +11,12 @@ extension ValidateString on String {
   }
 
   bool get isValidName {
-    final nameRegExp = RegExp(r"^\s*([A-Za-z]{1,}([\.,] |[-']| ))+[A-Za-z]+\.?\s*$");
+    final nameRegExp = RegExp('[a-zA-Z]');
     return nameRegExp.hasMatch(this);
   }
 
   bool get isValidPhone {
-    final phoneRegExp = RegExp(r"^\+?0[0-9]{10}$");
+    final phoneRegExp = RegExp(r'(^(?:[+0]9)?[0-9]{10,12}$)');
     return phoneRegExp.hasMatch(this);
   }
 
