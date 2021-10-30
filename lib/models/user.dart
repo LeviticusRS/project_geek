@@ -9,7 +9,7 @@ class User {
       this.biography);
 
   static User fetchDefault() {
-    return User("Joshua", "Ransom", "", "", "");
+    return User("Joshua", "Ransom", "910-105-1039", "joshua.ransom@approachablegeek.com", "Potential Future Approachable Geek, Looking to find a new home to build and experience new things.");
   }
 }
 
