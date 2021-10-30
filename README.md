@@ -4,13 +4,16 @@ Small mobile application to emulate a functional profile page as part of a inter
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+This project is best ran in android studio, using the android sdk to emulate a android device.
+Due to limitations, this project is only built for mobile, targeting android.
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+## Requirements
+Android studio
+- Dart Plugins
+- Flutter pugin
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Android API Version: 30
+
+AVD Used in building
+![image](https://user-images.githubusercontent.com/8345926/139518291-1f43198c-bfe7-4aa2-9315-f0ecc4a05ad0.png)
